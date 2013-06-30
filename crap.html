@@ -1,0 +1,66 @@
+<head>
+  <title>Leaderboard</title>
+</head>
+
+<body>
+  <audio id="audio" autoplay="autoplay"></audio>
+  <canvas id="frequency"></canvas>
+  <canvas id="present"></canvas>
+  <canvas id="history"></canvas>
+
+  <div id="outer">
+    {{> crap}}
+  </div>
+</body>
+
+<template name="crap">
+
+  {{#if selected_name}}
+  <div class="details">
+    <div class="name">{{selected_name}}</div>
+  </div>
+  {{/if}}
+
+  <div class="crap">
+    <div style="float: left">
+      Sort by:
+      {{#if sort_by_time}}
+        <b>Time</b> | <a href="#" id="sort_by_score">Score</a>
+      {{else}}
+        <a href="#" id="sort_by_time">Time</a> | <b>Score</b>
+      {{/if}}
+    </div>
+  </div>
+
+  <div style="clear: both"/>
+    <div class="presenter">
+      <span class="head">Presenters</span>
+      <span class="head">Score</span>
+      <span class="head">Time</span>
+    </div>
+
+    {{#each presenters}}
+      {{> presenter}}
+    {{/each}}
+  </div>
+
+  <div class="new_presenter">
+    <input type="text" name="name" placeholder="Input Presenter"/>
+    <input type="submit" value="Add" name="add"/>
+  </div>
+
+  <div class="crap">
+    <div style="float: right">
+      <input class="reset" type="button" value="Reset"/>
+    </div>
+  </div>
+</template>
+
+<template name="presenter">
+  <div class="presenter {{selected}}">
+    <span class="name">{{name}}</span>
+    <span class="score">{{score}}</span>
+    <span class="time">{{time}}</span>
+    <a href="#" class="delete" {{#unless selected}}style="display:none"{{/unless}}>delete</a>
+  </div>
+</template>
